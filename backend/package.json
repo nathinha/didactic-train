@@ -1,0 +1,18 @@
+{
+  "name": "adp-backend",
+  "version": "1.0.0",
+  "description": "REST API application that gathers information from the ADP API and share through its own API.",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "nodemon src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nathalia Rippel",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
