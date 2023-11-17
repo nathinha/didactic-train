@@ -4,8 +4,8 @@ async function getTask() {
   const res = await fetch(`${baseURL}/get-task`, {
     method: 'GET',
   });
-  const data = await res.json();
-  return data;
+  const task = await res.json();
+  return task;
 }
 
 module.exports = { getTask };
