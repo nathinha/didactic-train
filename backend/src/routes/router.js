@@ -5,17 +5,19 @@ const { parseTransactions } = require('../helpers/transactions');
 const router = express.Router();
 
 router.get('/', (_, res) => {
-  let data = { };
+  let id = '';
+  let transactions = [];
+
   getTask()
     .then((task) => {
       res.status(200).json(task.transactions);
-      parseTransactions(task);
+      id = task.id;
+      transactions = parseTransactions(task);
+      console.log(transactions);
     })
     .catch((error) => {
       console.log(error);
     });
-
-    
 });
 
 module.exports = router;

@@ -30,14 +30,35 @@ function getEmployees(data) {
 }
 
 function getTopEarner(employees) {
-  return employees.reduce((cur, nxt) => {
-    cur > nxt ? cur : nxt;
+  let maxSum = -Infinity;
+  let topEarner = null;
+
+  for (let employee in employees) {
+    if (employees[employee].hasOwnProperty('sum') && employees[employee]['sum'] > maxSum) {
+      maxSum = employees[employee]['sum'];
+      topEarner = employee;
+    }
+  }
+
+  return topEarner;
+}
+
+function getAlphaTransactions(transactions) {
+  let result = [];
+
+  transactions.forEach((transaction) => {
+    if (transaction['type'] === 'alpha') {
+      result.push(transaction['transactionID']);
+    }
   });
+
+  return result;
 }
 
 function parseTransactions(data) {
   let employees = getEmployees(data);
   let topEarner = getTopEarner(employees);
+  return getAlphaTransactions(employees[topEarner].transactions);
 }
 
 module.exports = { parseTransactions };
