@@ -1,4 +1,4 @@
-// create transactions array by employee
+// separate transactions per employee ID and sum the transactions amounts
 function getEmployees(data) {
   let employees = {};
 
@@ -9,15 +9,22 @@ function getEmployees(data) {
     // check if transaction belongs to previous year
     if (year === last_year) {
       let employeeId = transaction['employee']['id'];
+      
+      // check if the current employee object exists
+      // if not, create a new employee object
       if (!employees.hasOwnProperty(employeeId)) {
         employees[employeeId] = {};
       }
 
+      // check if the current employee object already has a transactions object
+      // if not, create a new transactions object and push current transaction
       if (!employees[employeeId].hasOwnProperty('transactions')) {
         employees[employeeId]['transactions'] = [];
       }
       employees[employeeId]['transactions'].push(transaction);
 
+      // check if the current employee object already has a sum object
+      // if not, create a new sum object and add the current transaction amount to the sum
       if (!employees[employeeId].hasOwnProperty('sum')) {
         employees[employeeId]['sum'] = 0;
       }
@@ -29,13 +36,14 @@ function getEmployees(data) {
   return employees;
 }
 
+// from the employees object, check which employee has the greater sum of transactions amount (top earner)
 function getTopEarner(employees) {
-  let maxSum = -Infinity;
+  let topSum = -Infinity;
   let topEarner = null;
 
   for (let employee in employees) {
-    if (employees[employee].hasOwnProperty('sum') && employees[employee]['sum'] > maxSum) {
-      maxSum = employees[employee]['sum'];
+    if (employees[employee].hasOwnProperty('sum') && employees[employee]['sum'] > topSum) {
+      topSum = employees[employee]['sum'];
       topEarner = employee;
     }
   }
@@ -43,6 +51,7 @@ function getTopEarner(employees) {
   return topEarner;
 }
 
+// list only the alpha transactions of the top earner employee
 function getAlphaTransactions(transactions) {
   let result = [];
 
@@ -55,6 +64,7 @@ function getAlphaTransactions(transactions) {
   return result;
 }
 
+// call all above functions to get the top earner alpha transactions
 function parseTransactions(data) {
   let employees = getEmployees(data);
   let topEarner = getTopEarner(employees);
